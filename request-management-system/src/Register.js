@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
-    const [username, setUsername] = useState('');
+    const [name, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessages, setErrorMessages] = useState([]);
@@ -13,7 +13,7 @@ const Register = () => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8000/api/register', {
-                username,
+                name,
                 email,
                 password
             });
@@ -45,8 +45,8 @@ const Register = () => {
                 )}
                 <form onSubmit={handleSubmit}>
                     <label>
-                        Username:
-                        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                        Name:
+                        <input type="text" value={name} onChange={(e) => setUsername(e.target.value)} required />
                     </label>
                     <label>
                         Email:
@@ -58,6 +58,7 @@ const Register = () => {
                     </label>
                     <button type="submit">Register</button>
                 </form>
+                <p>Already have an account? <Link to="/login">Login here</Link></p>
             </div>
         </div>
     );

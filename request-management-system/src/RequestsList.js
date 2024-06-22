@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './RequestsList.css'; // Import your updated styles
+import './styles.css'; // Import your updated styles
 
 const RequestsList = () => {
     const [requests, setRequests] = useState([]);
@@ -54,9 +54,9 @@ const RequestsList = () => {
                                 <strong>Created On:</strong> {request.created_on}<br />
                                 <strong>Location:</strong> {request.location}<br />
                                 <strong>Service:</strong> {request.service}<br />
-                                <strong>Status:</strong> {request.status}<br />
                                 <strong>Priority:</strong> {request.priority}<br />
                                 <strong>Department:</strong> {request.department}<br />
+                                <strong>Status:</strong> {request.status}<br />
                                 <strong>Requested By:</strong> {request.creator.name}<br />
                                 <strong>Assigned To:</strong> {request.assignee.name}<br />
                             </div>

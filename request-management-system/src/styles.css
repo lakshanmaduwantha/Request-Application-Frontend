@@ -103,3 +103,20 @@ body, html {
         padding: 15px;
     }
 }
+
+
+
+/* styles.css */
+
+.priority-high {
+    color: red; /* Example color for HIGH priority */
+    font-weight: bold; /* Example style for HIGH priority */
+}
+
+.priority-medium {
+    color: orange; /* Example color for MEDIUM priority */
+}
+
+.priority-low {
+    color: green; /* Example color for LOW priority */
+}

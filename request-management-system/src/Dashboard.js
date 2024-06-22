@@ -53,6 +53,19 @@ const Dashboard = () => {
         }
     };
 
+    const getPriorityColorClass = (priority) => {
+        switch (priority) {
+            case 'HIGH':
+                return 'priority-high';
+            case 'MEDIUM':
+                return 'priority-medium';
+            case 'LOW':
+                return 'priority-low';
+            default:
+                return ''; // Default class for other priorities
+        }
+    };
+
     return (
         <div>
             <button onClick={openForm} className="new-request-btn">New Request</button>
@@ -63,9 +76,9 @@ const Dashboard = () => {
                         <th>Created On</th>
                         <th>Location</th>
                         <th>Service</th>
-                        <th>Status</th>
                         <th>Priority</th>
                         <th>Department</th>
+                        <th>Status</th>
                         <th>Requested By</th>
                         <th>Assigned To</th>
                     </tr>
@@ -77,9 +90,9 @@ const Dashboard = () => {
                             <td>{request.created_on}</td>
                             <td>{request.location}</td>
                             <td>{request.service}</td>
-                            <td className={getStatusColorClass(request.status)}>{request.status}</td>
-                            <td>{request.priority}</td>
+                            <td className={getPriorityColorClass(request.priority)}>{request.priority}</td>
                             <td>{request.department}</td>
+                            <td className={getStatusColorClass(request.status)}>{request.status}</td>
                             <td>{request.creator.name}</td>
                             <td>{request.assignee.name}</td>
                         </tr>

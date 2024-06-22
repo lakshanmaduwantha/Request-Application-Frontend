@@ -1,0 +1,105 @@
+/* General styles for full-screen layout */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+/* Container to make sure the component takes full screen */
+.requests-list-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styling the requests list */
+.requests-list {
+    width: 100%;
+    max-width: 1200px;
+    height: 90vh; /* Occupies 90% of the viewport height */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow-y: auto; /* Scroll if content overflows */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Centering and styling the request items container */
+.requests-table {
+    width: 100%;
+    border-collapse: collapse; /* Make sure table borders collapse */
+}
+
+.requests-table th, .requests-table td {
+    border: 1px solid #ddd; /* Border for table cells */
+    padding: 8px; /* Padding inside table cells */
+    text-align: left; /* Align text to the left */
+}
+
+.requests-table th {
+    background-color: #f2f2f2; /* Light grey background for header */
+    color: #333; /* Dark text color for header */
+}
+
+.requests-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light grey background for even rows */
+}
+
+.requests-table tr:hover {
+    background-color: #f5f5f5; /* Slightly darker background on hover */
+}
+
+/* Status color coding */
+.status-new {
+    background-color: #007bff;
+    color: white;
+}
+
+.status-in-progress {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.status-on-hold, .status-cancelled {
+    background-color: #6c757d;
+    color: white;
+}
+
+.status-rejected {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Header styling */
+.requests-list h2 {
+    margin: 0;
+    padding: 20px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Making sure the container is responsive */
+@media (max-width: 768px) {
+    .requests-list {
+        height: 95vh; /* Occupies 95% of the viewport height on smaller screens */
+        padding: 10px;
+    }
+
+    .requests-table th, .requests-table td {
+        padding: 5px;
+    }
+
+    .requests-list h2 {
+        padding: 15px;
+    }
+}

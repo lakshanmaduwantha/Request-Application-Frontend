@@ -6,6 +6,7 @@ import './styles.css'; // Import CSS file
 const Dashboard = () => {
     const [requests, setRequests] = useState([]);
     const [showForm, setShowForm] = useState(false);
+    const [editRequest, setEditRequest] = useState(null);
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -28,12 +29,36 @@ const Dashboard = () => {
         fetchRequests();
     }, []);
 
-    const openForm = () => {
+    const openForm = (request = null) => {
+        setEditRequest(request);
         setShowForm(true);
     };
 
     const closeForm = () => {
+        setEditRequest(null);
         setShowForm(false);
+    };
+
+    const handleFormSubmit = (updatedRequest) => {
+        if (editRequest) {
+            setRequests(requests.map(req => (req.id === updatedRequest.id ? updatedRequest : req)));
+        } else {
+            setRequests([...requests, updatedRequest]);
+        }
+        closeForm();
+    };
+
+    const deleteRequest = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8000/api/requests/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            setRequests(requests.filter(request => request.id !== id));
+        } catch (error) {
+            console.error('Error deleting request', error);
+        }
     };
 
     const getStatusColorClass = (status) => {
@@ -68,7 +93,7 @@ const Dashboard = () => {
 
     return (
         <div>
-            <button onClick={openForm} className="new-request-btn">New Request</button>
+            <button onClick={() => openForm()} className="new-request-btn">New Request</button>
             <table>
                 <thead>
                     <tr>
@@ -81,6 +106,7 @@ const Dashboard = () => {
                         <th>Status</th>
                         <th>Requested By</th>
                         <th>Assigned To</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -95,11 +121,15 @@ const Dashboard = () => {
                             <td className={getStatusColorClass(request.status)}>{request.status}</td>
                             <td>{request.creator.name}</td>
                             <td>{request.assignee.name}</td>
+                            <td>
+                                <button onClick={() => openForm(request)}>Update</button>
+                                <button onClick={() => deleteRequest(request.id)}>Delete</button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            {showForm && <CreateRequestForm onClose={closeForm} />}
+            {showForm && <CreateRequestForm onClose={closeForm} onSubmit={handleFormSubmit} request={editRequest} />}
         </div>
     );
 };
